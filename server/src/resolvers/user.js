@@ -19,8 +19,22 @@ const queries = {
   }
 }
 
+const mutations = {
+  createUser(
+    _,
+    {
+      input: { username, password, email, first_name, last_name }
+    },
+    ctx,
+    info
+  ) {
+    return create({ username, password, email, first_name, last_name })
+  }
+}
+
 module.exports = {
   user: {
+    mutations,
     queries,
     create,
     byId

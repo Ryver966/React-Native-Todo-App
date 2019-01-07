@@ -21,4 +21,4 @@ exports.up = (knex, _) =>
       .nullable()
   })
 
-exports.down = (knex, _) => knex.schema.dropTable('users');
+exports.down = (knex, _) => knex.schema.dropTable('users')

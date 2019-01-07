@@ -5,6 +5,7 @@ const config = require('../knexfile')[env]
 module.exports = {
   db: require("knex")(config),
   tables: {
-    USERS: 'users'
+    USERS: 'users',
+    TASKS: 'tasks'
   }
 }

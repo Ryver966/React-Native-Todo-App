@@ -1,8 +1,9 @@
-const express = require("express")
-const { ApolloServer, gql } = require("apollo-server-express")
-const { user } = require("./src/resolvers/user")
+const express = require('express')
+const { ApolloServer, gql } = require('apollo-server-express')
+const { user } = require('./src/resolvers/user')
+const { task } = require('./src/resolvers/task')
 
-const typesDefinition = gql`
+const typeDefs = gql`
   type User {
     id: ID!
     username: String!
@@ -12,11 +13,20 @@ const typesDefinition = gql`
     password: String!
   }
 
-  type Query {
-    user(id: ID!): User!
+  type Task {
+    id: ID!
+    title: String!
+    user_id: ID!
+    description: String
+    author: User!
   }
 
-  input createUser {
+  type Query {
+    user(id: ID!): User!
+    task(id: ID!): Task!
+  }
+
+  input createUserInput {
     username: String!
     first_name: String
     last_name: String
@@ -24,17 +34,25 @@ const typesDefinition = gql`
     password: String!
   }
 
+  inputy createTaskInput {
+    title: String!
+    description: String
+    user_id: ID!
+  }
+
   type Mutation {
     createUser(input: createUserInput): String
+    createTask(input: createTaskInput): String
   }
 `
 
 const resolvers = {
   Query: {
-    ...user.queries
+    ...user.queries,
+    ...task.queries
   }
 }
-const server = new ApolloServer({ typesDefinition, resolvers })
+const server = new ApolloServer({ typeDefs, resolvers })
 const app = express()
 const port = 3000
 
