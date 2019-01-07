@@ -10,7 +10,10 @@
     "create-migration": "knex migrate:make migration_name",
     "run-migrations:dev": "knex migrate:latest --env development",
     "rollback-migration:dev": "knex migrate:rollback --env development",
-    "run-seeds:dev": "knex seed:run --env development"
+    "run-seeds:dev": "knex seed:run --env development",
+    "run-migrations:test": "knex migrate:latest --env test",
+    "rollback-migration:test": "knex migrate:rollback --env test",
+    "run-seeds:test": "knex seed:run --env test"
   },
   "dependencies": {
     "apollo-server-express": "^2.3.1",
