@@ -3,6 +3,17 @@ const { task } = require("../task")
 let createTaskId
 
 describe('Task', async () => {
+  it('successfully gets tasks by user id', async () => {
+    const tasks = await task.allForUser(1)
+
+    tasks.forEach(task => {
+      expect(task).toHaveProperty('id')
+      expect(task).toHaveProperty('title')
+      expect(task.user_id).toEqual(1)
+    })
+    expect(tasks).toBeInstanceOf(Array)
+  })
+
   it('successfully gets task by id', async () => {
     const { id, title, user_id} = await task.byId(1)
 
@@ -39,19 +50,20 @@ describe('Task', async () => {
   })
 
   it('gets all tasks from database', async () => {
-    const tasks = await task.all();
+    const tasks = await task.all()
+
     tasks.forEach(task => {
-      expect(task).toHaveProperty('id');
-      expect(task).toHaveProperty('title');
-      expect(task).toHaveProperty('user_id');
-    });
-    expect(tasks).toBeInstanceOf(Array);
+      expect(task).toHaveProperty('id')
+      expect(task).toHaveProperty('title')
+      expect(task).toHaveProperty('user_id')
+    })
+    expect(tasks).toBeInstanceOf(Array)
   })
 
   it('removes task from the database, consuming id as a param', async () => {
-    const result = await task.remove(createTaskId);
-    expect(result).toEqual(createTaskId);
-    const getTask = await task.byId(createTaskId);
-    expect(getTask).toBeUndefined();
+    const result = await task.remove(createTaskId)
+    expect(result).toEqual(createTaskId)
+    const getTask = await task.byId(createTaskId)
+    expect(getTask).toBeUndefined()
   });
 })
