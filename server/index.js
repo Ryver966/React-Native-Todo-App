@@ -55,8 +55,8 @@ const resolvers = {
     ...task.queries
   },
   User: {
-    tasks({ id }) {
-      return task.allForUser(id)
+    tasks({ user_id }) {
+      return task.allForUser(user_id)
     }
   },
   Task: {
