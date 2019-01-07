@@ -11,12 +11,15 @@ const typeDefs = gql`
     last_name: String
     email: String!
     password: String!
+    tasks: [Task]
   }
 
   type Task {
     id: ID!
     title: String!
     user_id: ID!
+    author: User!
+    completed: Boolean!
     description: String
     author: User!
   }
@@ -50,6 +53,16 @@ const resolvers = {
   Query: {
     ...user.queries,
     ...task.queries
+  },
+  User: {
+    tasks({ user_id }) {
+      return task.allForUser(user_id)
+    }
+  },
+  Task: {
+    author({ user_id }) {
+      return user.byId(user_id)
+    }
   }
 }
 const server = new ApolloServer({ typeDefs, resolvers })

@@ -1,4 +1,5 @@
-const { db, tables } = require("../../db/knex")
+const { db, tables } = require('../../db/knex')
+const { task } = require('./task')
 
 const byId = id =>
   db(tables.USERS)
