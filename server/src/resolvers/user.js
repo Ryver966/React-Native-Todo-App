@@ -1,4 +1,5 @@
-const { db, tables } = require("../../db/knex")
+const { db, tables } = require('../../db/knex')
+const { task } = require('./task')
 
 const byId = id =>
   db(tables.USERS)
@@ -15,7 +16,10 @@ const create = ({ username, password, email, first_name, last_name }) =>
 
 const queries = {
   user(_, { id }, ctx, info) {
-    return byId(id)
+    return {
+      ...byId(id),
+      tasks: task.allForUser(id)
+    }
   }
 }
 

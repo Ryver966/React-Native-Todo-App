@@ -6,7 +6,12 @@ const byId = id =>
     .first()
     .then(task => task)
 
-const all = () => db.select().table(tables.TASKS);
+const all = () => db.select().table(tables.TASKS)
+
+const allForUser = user_id =>
+  db(tables.TASKS)
+    .where(({ user_id }))
+    .then(tasks => tasks)
 
 const remove = id =>
   db(tables.TASKS)
@@ -50,6 +55,7 @@ module.exports = {
     mutations,
     queries,
     create,
+    allForUser,
     all,
     remove,
     byId
