@@ -16,10 +16,7 @@ const create = ({ username, password, email, first_name, last_name }) =>
 
 const queries = {
   user(_, { id }, ctx, info) {
-    return {
-      ...byId(id),
-      tasks: task.allForUser(id)
-    }
+    return byId(id)
   }
 }
 
