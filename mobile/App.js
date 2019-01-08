@@ -1,17 +1,24 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { ThemeContext, getTheme } from 'react-native-material-ui'
+import ApolloClient from 'apollo-boost'
+import { ApolloProvider } from 'react-apollo'
 
-import { uiTheme } from './src/globalStyles'
+import { uiTheme, colors } from './src/globalStyles'
+import Routes from './src/routes'
+
+const client = new ApolloClient({
+  uri: 'http://localhost:3000/graphql'
+})
 
 export default class App extends React.Component {
   render() {
     return (
-      <ThemeContext.Provider value={getTheme(uiTheme)}>
-        <View style={styles.container}>
-          <Text>It lives!</Text>
-        </View>
-      </ThemeContext.Provider>
+      <ApolloProvider client={client}>
+        <ThemeContext.Provider value={getTheme(uiTheme)}>
+          <Routes />
+        </ThemeContext.Provider>
+      </ApolloProvider>
     );
   }
 }
@@ -19,8 +26,6 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: colors.background
   },
 });
