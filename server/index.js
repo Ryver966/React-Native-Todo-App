@@ -21,10 +21,10 @@ const typeDefs = gql`
     author: User!
     completed: Boolean!
     description: String
-    author: User!
   }
 
   type Query {
+    getUserByUsernameAndPassword(username: String!, password: String!): User!
     user(id: ID!): User!
     task(id: ID!): Task!
   }
@@ -37,7 +37,7 @@ const typeDefs = gql`
     password: String!
   }
 
-  inputy createTaskInput {
+  input createTaskInput {
     title: String!
     description: String
     user_id: ID!
@@ -67,8 +67,9 @@ const resolvers = {
 }
 const server = new ApolloServer({ typeDefs, resolvers })
 const app = express()
+server.applyMiddleware({ app })
 const port = 3000
 
 app.listen({ port }, () =>
-  console.log(`Server is ready at http:/localhost:${port}${server.graphqlPath}`)
+  console.log(`Server is ready at http://localhost:${port}${server.graphqlPath}`)
 )

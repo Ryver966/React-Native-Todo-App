@@ -7,6 +7,14 @@ const byId = id =>
     .first()
     .then(user => user)
 
+const byUsernameAndPassowrd = ({ username, password }) =>
+  db(tables.USERS)
+    .where(function() {
+      this.where({ username }).andWhere({ password })
+    })
+    .then(user => user)
+    .catch(e => e)
+
 const create = ({ username, password, email, first_name, last_name }) =>
   db(tables.USERS)
     .insert({ username, password, email, first_name, last_name })
@@ -17,6 +25,9 @@ const create = ({ username, password, email, first_name, last_name }) =>
 const queries = {
   user(_, { id }, ctx, info) {
     return byId(id)
+  },
+  getUserByUsernameAndPassword(_, { username, password }, ctx, info) {
+    return byUsernameAndPassowrd({ username, password })
   }
 }
 
@@ -36,6 +47,7 @@ const mutations = {
 module.exports = {
   user: {
     mutations,
+    byUsernameAndPassowrd,
     queries,
     create,
     byId

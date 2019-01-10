@@ -27,6 +27,10 @@ class LoginForm extends React.Component {
       }
     })
 
+  handleSubmit = () => {
+    return  this.props.onSend({ username: 'piotr.gorski', password: 'U2FsdGVkX1/L13vuq6pJT3iYsF/f1OS3Ftv7ib5SvKY=' })
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -46,7 +50,7 @@ class LoginForm extends React.Component {
 
         <View style={styles.buttonContainer}>
           <SendButton 
-            onPress={() => { /* */ }}
+            onPress={this.handleSubmit}
             label='Login'
           />
         </View>
@@ -55,6 +59,8 @@ class LoginForm extends React.Component {
   }
 }
 
-LoginForm.propTypes = {}
+LoginForm.propTypes = {
+  onSend: propTypes.func.isRequired
+}
 
 export default LoginForm

@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+import { getUserByUsernameAndPassword } from '../../actions/user'
 import LoginForm from '../../components/forms/Login'
 
 import styles from './styles'
@@ -10,6 +11,9 @@ class LoginScreen extends React.Component {
   static navigationOptions = () => ({
     header: null,
   })
+
+  logIn = ({ username, password }) =>
+    getUserByUsernameAndPassword({ username, password })
 
   render() {
     return (
@@ -24,7 +28,9 @@ class LoginScreen extends React.Component {
           </View>
 
           <View style={styles.formContainer}>
-            <LoginForm />
+            <LoginForm 
+              onSend={this.logIn}
+            />
           </View>
       </KeyboardAwareScrollView>
       </View>

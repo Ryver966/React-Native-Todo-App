@@ -1,15 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { ThemeContext, getTheme } from 'react-native-material-ui'
-import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 
+import client from './src/apolloClient'
 import { uiTheme, colors } from './src/globalStyles'
 import Routes from './src/routes'
 
-const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql'
-})
 
 export default class App extends React.Component {
   render() {
